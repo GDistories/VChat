@@ -22,8 +22,8 @@ public class LoginFrame extends JFrame {
         add(loginUiBottom);
     }
     class LoginUiBottom extends JPanel {//绘制按钮
-        private JButton loginButton = new JButton("登录");
-        private JButton registerButton = new JButton("注册");
+        private JButton loginButton = new JButton("Login");
+        private JButton registerButton = new JButton("Register");
         public LoginUiBottom(){
             this.setSize(200, 40);
             //this.setLayout(null);

@@ -22,8 +22,8 @@ public class RegisterFrame extends JFrame {
     }
 
     class RegisterUiBottom extends JPanel {
-        private JButton loginButton = new JButton("注册");
-        private JButton returnButton = new JButton("返回");
+        private JButton loginButton = new JButton("Register");//绘制按钮
+        private JButton returnButton = new JButton("Back");//绘制按钮
 
         public RegisterUiBottom() {
             this.setSize(200, 40);

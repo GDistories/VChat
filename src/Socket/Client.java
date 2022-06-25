@@ -18,6 +18,8 @@ public class Client {
             socket = new Socket("127.0.0.1", 1505);//绑定套接字
             this.socket = socket;
             System.out.println("Connected to Server Successfully!");
+            ChatRoomFrame.setTextIn("Connected to Server Successfully!");
+
         } catch (IOException e) {//，创建套接字失败，请求连接失败，抛出异常，打印消息
             e.printStackTrace();
             ChatRoomFrame.setTextIn("Server is not running! Connected to Server Failed!");
@@ -59,17 +61,16 @@ class ClientThread implements Runnable {//接收消息线程
         br = null;
         try {
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
             while (true) {
                 String str = br.readLine();
                 if (str.equals("Server Has Been Closed!")) {//获取服务器关闭指示，关闭端口
                     if (br != null) br.close();
                 }
-//                if (str.matches(pattern)) {//获取服务器发送的消息
-//                    ChatRoomFrame.setTextIn(str);
-//                }
-                System.out.println(str);
-                ChatRoomFrame.setTextIn(str);
+                if (str.contains("Current Online User:")) {//获取服务器发送的消息
+                    System.out.println(str);
+                }else{
+                    ChatRoomFrame.setTextIn(str);
+                }
             }
         } catch (IOException e) {//抓取流异常判断连接是否断开
             e.printStackTrace();

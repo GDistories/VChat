@@ -6,8 +6,8 @@ import javax.swing.*;
 
 public class ChatRoomUi  {
     public  static void creatChatRoomUi(){
-        ChatRoomFrame chatRoomFrame = new ChatRoomFrame("聊天室");
-        chatRoomFrame.setSize(720, 490);
+        ChatRoomFrame chatRoomFrame = new ChatRoomFrame("ChatRoom");
+        chatRoomFrame.setSize(800, 490);
         chatRoomFrame.setLayout(null);
         chatRoomFrame.setLocationRelativeTo(null);//中间显示
         chatRoomFrame.setResizable(false);//窗体大小不可调整

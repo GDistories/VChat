@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class LoginUi {
     public static void createGui() {
-        LoginFrame loginframe = new LoginFrame("登录");
+        LoginFrame loginframe = new LoginFrame("Login");
         loginframe.setSize(380, 290);//设置界面大小
         loginframe.setLayout(null);//取消布局器
         loginframe.setLocationRelativeTo(null);//中间显示

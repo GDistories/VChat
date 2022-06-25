@@ -4,7 +4,7 @@ import MyFrame.ClientFrame.RegisterFrame;
 
 public class RegisterUi  {
     public static void  createRegister() {
-        RegisterFrame registerFrame = new RegisterFrame("注册");
+        RegisterFrame registerFrame = new RegisterFrame("Register");
         registerFrame.setSize(380, 290);//设置界面大小
         registerFrame.setLayout(null);//取消布局器
         registerFrame.setLocationRelativeTo(null);//中间显示

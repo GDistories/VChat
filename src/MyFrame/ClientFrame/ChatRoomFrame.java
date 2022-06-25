@@ -10,6 +10,7 @@ import java.net.Socket;
 
 public class ChatRoomFrame extends JFrame {
     public static TextArea textOut = new TextArea("Start the Chat Room!");//输出聊天框
+    public static TextArea currentUser = new TextArea("Current User: ");//输出聊天框
     private JTextArea textIn = new JTextArea();//输入文本框
     private JButton sendButton = new JButton("Send");//发送按钮
     private String sendInformation;
@@ -33,6 +34,8 @@ public class ChatRoomFrame extends JFrame {
         SendButtonLister sendButtonLister = new SendButtonLister();//创建发送监听器
         sendButton.addActionListener(sendButtonLister);//绑定监听器
 
+        currentUser.setBounds(620, 0, 150, 330);
+        add(currentUser);//添加输入文本框
     }
 
 
