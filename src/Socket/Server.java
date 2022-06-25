@@ -25,7 +25,7 @@ public class Server {
             ServerFrame.setTextIn("Server is start at " + date.toString());
             while (true) {
                 Socket socket = serverSocket.accept();     //从连接请求队列中取出一个连接
-                System.out.println("上线通知： 用户" + socket.getPort() + "上线了！");//用户上线公告
+                System.out.println("User " + socket.getPort() + " is now online!");//用户上线公告
                 socketList.add(socket);//加入队列
                 printSocketList();//打印队列
                 new Thread(new ServerThread(socket, socketList)).start();//创建新线程
@@ -42,7 +42,7 @@ public class Server {
     }
 
     public void printSocketList() {
-        System.out.println("当前在线用户：");
+        System.out.println("Current Online User:");
         for (Socket socket : socketList) {
             System.out.println(socket.getPort());
         }
@@ -90,7 +90,7 @@ class ServerThread implements Runnable {//服务器群发消息线程
                 //公告退出if...
                 for (Socket item : socketList) {//遍历客户队列，向每一个客户发送数据
                     pw = new PrintWriter(item.getOutputStream());//创建数据输出流
-                    pw.println("用户" + socket.getPort() + "说：" + str);//发送数据
+                    pw.println("User " + socket.getPort() + " says: " + str);//发送数据
                     pw.flush();//刷新
                 }
             }

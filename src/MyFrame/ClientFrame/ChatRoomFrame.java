@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 import java.net.Socket;
 
 public class ChatRoomFrame extends JFrame {
-    public static TextArea textOut = new TextArea("信息");//输出聊天框
-    private JTextArea textIn = new JTextArea("请输入信息");//输入文本框
-    private JButton sendButton = new JButton("发送");//发送按钮
+    public static TextArea textOut = new TextArea("Start the Chat Room!");//输出聊天框
+    private JTextArea textIn = new JTextArea();//输入文本框
+    private JButton sendButton = new JButton("Send");//发送按钮
     private String sendInformation;
     private Client client;//创建客户类
     public Socket socket;//创建套接字
