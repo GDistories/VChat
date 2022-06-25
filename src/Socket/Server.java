@@ -1,5 +1,7 @@
 package Socket;
 
+import MyFrame.ServerFrame.ServerFrame;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Server {
@@ -17,7 +20,9 @@ public class Server {
         serverSocket = null;//创界服务器套接字
         try {
             serverSocket = new ServerSocket(1505);//绑定端口
-            System.out.println("聊天室开启");
+            System.out.println("Server is running...");
+            Date date = new Date();
+            ServerFrame.setTextIn("Server is start at " + date.toString());
             while (true) {
                 Socket socket = serverSocket.accept();     //从连接请求队列中取出一个连接
                 System.out.println("上线通知： 用户" + socket.getPort() + "上线了！");//用户上线公告
@@ -48,7 +53,7 @@ public class Server {
         for (Socket item : socketList) {//关闭所有端口
             try {
                 pw = new PrintWriter(item.getOutputStream());//创建数据输出流
-                pw.println("ServerHasBeenClosed");//发送服务器关闭指示
+                pw.println("Server Has Been Closed!");//发送服务器关闭指示
                 pw.flush();//刷新
             } catch (IOException e) {
                 e.printStackTrace();

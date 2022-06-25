@@ -18,14 +18,14 @@ public class LoginUiMid extends JPanel {
     }
 
     void setAccountIcon(){
-        ImageIcon accountIcon = new ImageIcon("images/chat/登录.png");
+        ImageIcon accountIcon = new ImageIcon("images/chat/login.png");
         userName.setIcon(accountIcon);
         userName.setBounds(0, 0, 32, 32);
         this.add(userName);
     }
 
     void setPasswordIcon(){
-        ImageIcon passwordIcon = new ImageIcon("images/chat/密码.png");
+        ImageIcon passwordIcon = new ImageIcon("images/chat/password.png");
         password.setIcon(passwordIcon);
         password.setBounds(0, 35, 32, 32);
         this.add(password);
