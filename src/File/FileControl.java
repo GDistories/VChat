@@ -36,44 +36,46 @@ public class FileControl {
     }
 
     public synchronized void write(String str) throws IOException {
+        System.out.println("Now is writing..." + str);
         FileOutputStream fout = new FileOutputStream(file, true);
         OutputStreamWriter writer = new OutputStreamWriter(fout);
         BufferedWriter buffWriter = new BufferedWriter(writer);
         buffWriter.write(str);
         buffWriter.newLine();
         buffWriter.close();
+        System.out.println("Write success!" + str);
     }
 
     public synchronized void saveLog() throws IOException {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 
-        //确认源文件
+        //Confirm source file
         File file=new File("logfile/log.txt");
-        //确认输入流
+        //Confirm input stream
         FileReader fr=new FileReader(file);
-        //读数据
+        //Read data from source file
         int n;
         StringBuilder sb=new StringBuilder();
         while ((n=fr.read())!=-1){
             sb.append((char)n);
         }
-        //及时关闭输入
+        //Close input stream
         fr.close();
 
-        //确定输出目标
+        //Confirm target file
         File file2=new File("logfile/log_"+ sdf.format(date) +".txt");
         if(!file2.exists()){
             file2.createNewFile();
         }
-        //确认输出流
+        //Confirm output stream
         FileWriter fw=new FileWriter(file2);
-        //写数据
+        //Write data to target file
         for (int i = 0; i <sb.length() ; i++) {
             char a=sb.charAt(i);
             fw.write(a);
         }
-        //及时关闭输出
+        //Close output stream
         fw.close();
 
     }

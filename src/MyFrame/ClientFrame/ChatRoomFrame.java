@@ -11,33 +11,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatRoomFrame extends JFrame {
-    public static TextArea textOut = new TextArea("Start the Chat Room!");//输出聊天框
-    public static TextArea currentUser = new TextArea("Current User: ");//输出聊天框
-    private JTextArea textIn = new JTextArea();//输入文本框
-    private JButton sendButton = new JButton("Send");//发送按钮
+    public static TextArea textOut = new TextArea("Start the Chat Room!");//Output text area
+    public static TextArea currentUser = new TextArea("Current User: ");//Output text area
+    private JTextArea textIn = new JTextArea();//Input text area
+    private JButton sendButton = new JButton("Send");//Send button
     private String sendInformation;
-    private Client client;//创建客户类
-    public Socket socket;//创建套接字
+    private Client client;//Client object
+    public Socket socket;//Socket object
 
     public ChatRoomFrame(String title) {
         super(title);
         client = new Client(socket);
         socket = client.socket;
-        textOut.setBounds(0, 0, 590, 330);//设置输出框位置
-        add(textOut);//添加聊天框
-        //textOut.setEnabled(false);//不可编辑
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//窗口全部关闭
+            textOut.setBounds(0, 0, 590, 330);//Set the position of the output text area
+        add(textOut);//Add the output text area
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Close the program when the close button is clicked
 
         textIn.setBounds(0, 340, 590, 80);
-        add(textIn);//添加输入文本框
+        add(textIn);//Add the input text area
 
         sendButton.setBounds(520, 422, 70, 30);
-        add(sendButton);//添加发送按钮
-        SendButtonLister sendButtonLister = new SendButtonLister();//创建发送监听器
-        sendButton.addActionListener(sendButtonLister);//绑定监听器
+        add(sendButton);//Add the send button
+        SendButtonLister sendButtonLister = new SendButtonLister();//Create a SendButtonLister object
+        sendButton.addActionListener(sendButtonLister);//Add the listener to the button
 
         currentUser.setBounds(620, 0, 150, 330);
-        add(currentUser);//添加输入文本框
+        add(currentUser);//Add the output text area
     }
 
 
@@ -47,7 +46,7 @@ public class ChatRoomFrame extends JFrame {
         }
     }
 
-    void sendInformation() {//发送消息
+    void sendInformation() {//Send the message to the server
         sendInformation = textIn.getText();
         client.creatInput(sendInformation, socket);
         textIn.setText("");

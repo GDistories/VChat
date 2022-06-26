@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame {
     private LoginUiMid loginUiMid = new LoginUiMid();
     private LoginUiBottom loginUiBottom =new LoginUiBottom();
 
-    public LoginFrame(String title) {//绘制标签和输入框
+    public LoginFrame(String title) {//Draw the frame
         super(title);
         this.setBackground(Color.white);
         loginUiMid.setBounds(120,50,260,70);
@@ -21,43 +21,43 @@ public class LoginFrame extends JFrame {
         loginUiBottom.setBounds(92,140,200,40);
         add(loginUiBottom);
     }
-    class LoginUiBottom extends JPanel {//绘制按钮
+    class LoginUiBottom extends JPanel {//Draw the bottom of the frame
         private JButton loginButton = new JButton("Login");
         private JButton registerButton = new JButton("Register");
         public LoginUiBottom(){
             this.setSize(200, 40);
             //this.setLayout(null);
             this.setOpaque(false);
-            loginButton.setBounds(0,0,30,30);//按钮位置设置
-            add(loginButton);//将按钮加入
+            loginButton.setBounds(0,0,30,30);//Set the button position
+            add(loginButton);//Add the button to the frame
             MyButtonListen myButtonListen=new MyButtonListen();
             loginButton.addActionListener(myButtonListen);
 
             registerButton.setBounds(60,0,30,30);
             add(registerButton);
-            MyButtonListen2 myButtonListen2 =new MyButtonListen2();//建立按钮监听器对象
-            registerButton.addActionListener(myButtonListen2);//绑定监听器
+            MyButtonListen2 myButtonListen2 =new MyButtonListen2();//Set the button listener
+            registerButton.addActionListener(myButtonListen2);//Add the button listener
         }
     }
-    class MyButtonListen implements ActionListener//按钮监听器（登录）
+    class MyButtonListen implements ActionListener//Set the button listener(Login)
     {
         public void actionPerformed(ActionEvent actionEvent) {
             Login();
         }
     }
-    class MyButtonListen2 implements ActionListener//按钮监听器（注册）
+    class MyButtonListen2 implements ActionListener//Set the button listener(Register)
     {
         public void actionPerformed(ActionEvent actionEvent) {
             Register();
         }
     }
-    public  void Login(){//登录事件
-        this.dispose();//关闭当前窗口
-        ChatRoomUi.creatChatRoomUi();//打开聊天室窗口
+    public  void Login(){//Login
+        this.dispose();//Close the frame
+        ChatRoomUi.creatChatRoomUi();//Create the chat room frame
     }
-    public  void Register(){//注册事件
-        this.dispose();//关闭当前窗口
-        RegisterUi.createRegister();//打开注册窗口
+    public  void Register(){//Register
+        this.dispose();//Close the frame
+        RegisterUi.createRegister();//Create the register frame
     }
 }
 

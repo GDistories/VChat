@@ -8,33 +8,33 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client {
-    public PrintWriter pw = null;//创建空输出缓冲流
-    public Socket socket;//创建套接字
+    public PrintWriter pw = null;//Create an empty PrintWriter
+    public Socket socket;//Create an empty Socket
 
 
     public Client(Socket socket) {
-        socket = null;//创建套接字
+        socket = null;//Create an empty Socket
         try {
-            socket = new Socket("127.0.0.1", 1505);//绑定套接字
+            socket = new Socket("127.0.0.1", 1505);//Connect to the server
             this.socket = socket;
             System.out.println("Connected to Server Successfully!");
             ChatRoomFrame.setTextIn("Connected to Server Successfully!");
 
-        } catch (IOException e) {//，创建套接字失败，请求连接失败，抛出异常，打印消息
+        } catch (IOException e) {//If the connection fails, print the error message
             e.printStackTrace();
             ChatRoomFrame.setTextIn("Server is not running! Connected to Server Failed!");
             System.out.println("Server is not running! Connected to Server Failed!");
         }
-        Thread receptThread = new Thread(new ClientThread(socket));//创建接收线程
-        receptThread.setDaemon(true);//设置接受线程为守护线程
-        receptThread.start();//开启接收线程
+        Thread receptThread = new Thread(new ClientThread(socket));//Create a new thread to receive data from the server
+        receptThread.setDaemon(true);//Set the thread as a daemon thread
+        receptThread.start();//Start the thread
     }
 
     public void creatInput(String sendInformation, Socket socket) {
         try {
-            pw = new PrintWriter(socket.getOutputStream());//创建输出流
-            pw.println(sendInformation);//客户端输出
-            pw.flush();//刷新流
+            pw = new PrintWriter(socket.getOutputStream());//Create a new PrintWriter
+            pw.println(sendInformation);//Send the data to the server
+            pw.flush();//Flush the data to the server
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,14 +42,14 @@ public class Client {
 
     public void closeSocket(Socket socket) {
         try {
-            if (pw != null) pw.close();//关闭输出流
-            if (socket != null) socket.close();//关闭套接字
+            if (pw != null) pw.close();//Close the PrintWriter
+            if (socket != null) socket.close();//Close the Socket
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-class ClientThread implements Runnable {//接收消息线程
+class ClientThread implements Runnable {//Create a new thread to receive data from the server
 
     public Socket socket;
     public BufferedReader br;
@@ -63,16 +63,16 @@ class ClientThread implements Runnable {//接收消息线程
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (true) {
                 String str = br.readLine();
-                if (str.equals("Server Has Been Closed!")) {//获取服务器关闭指示，关闭端口
+                if (str.equals("Server Has Been Closed!")) {//If the server closes, close the client
                     if (br != null) br.close();
                 }
-                if (str.contains("Current Online User:")) {//获取服务器发送的消息
+                if (str.contains("Current Online User:")) {//If the server sends the current online user list, display it
                     ChatRoomFrame.setCurrentUser(str);
                 }else{
                     ChatRoomFrame.setTextIn(str);
                 }
             }
-        } catch (IOException e) {//抓取流异常判断连接是否断开
+        } catch (IOException e) {//If the connection fails, print the error message
             e.printStackTrace();
             System.out.println("Server shutdown, forced exit!");
         } finally {

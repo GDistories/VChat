@@ -9,10 +9,10 @@ public class ChatRoomUi  {
         ChatRoomFrame chatRoomFrame = new ChatRoomFrame("ChatRoom");
         chatRoomFrame.setSize(800, 490);
         chatRoomFrame.setLayout(null);
-        chatRoomFrame.setLocationRelativeTo(null);//中间显示
-        chatRoomFrame.setResizable(false);//窗体大小不可调整
-        chatRoomFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//关闭程序
-        chatRoomFrame.setAlwaysOnTop(true);//设置悬浮
-        chatRoomFrame.setVisible(true);//显示界面
+        chatRoomFrame.setLocationRelativeTo(null);//Display in the center
+        chatRoomFrame.setResizable(false);//The size of the frame can not be changed
+        chatRoomFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//Close the program
+        chatRoomFrame.setAlwaysOnTop(true);//Set the frame to float
+        chatRoomFrame.setVisible(true);//Display the frame
     }
 }

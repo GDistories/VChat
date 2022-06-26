@@ -3,18 +3,18 @@ package Ui.layout;
 import javax.swing.*;
 
 public class LoginUiMid extends JPanel {
-    private JLabel userName = new JLabel();//账号图标
-    private JLabel password = new JLabel();//密码图标
-    private JTextField accountField = new JTextField();//账号框
-    private JPasswordField passwordField = new JPasswordField();//密码框
+    private JLabel userName = new JLabel();//Username label
+    private JLabel password = new JLabel();//Password label
+    private JTextField accountField = new JTextField();//Username text field
+    private JPasswordField passwordField = new JPasswordField();//Password text field
 
     public LoginUiMid() {
         this.setSize(260, 70);
         this.setLayout(null);
         this.setOpaque(false);
-        setAccountIcon();//设置账户图标
-        setPasswordIcon();//设置密码图标
-        setField();//设置文本框
+        setAccountIcon();//Set the username icon
+        setPasswordIcon();//Set the password icon
+        setField();//Set the text field
     }
 
     void setAccountIcon(){

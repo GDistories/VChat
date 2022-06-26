@@ -7,22 +7,22 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 public class ServerFrame extends JFrame {
-    JLabel serverSwitch = new JLabel("Server has been closed.");//显示服务器状态
+    JLabel serverSwitch = new JLabel("Server has been closed.");//Create the label
     JButton open = new JButton("Open");
     JButton close = new JButton("Close");
-    static Date date = new Date();//创建时间类
-    public static TextArea serverText = new TextArea("Server is Closed.");//输出聊天框
-    private Thread serverThread = new Thread(new ServerThread());//创建服务器群发线程
-    private Server server=new Server();//创建服务器对象
+    static Date date = new Date();//Create the date object
+    public static TextArea serverText = new TextArea("Server is Closed.");//Create the text area
+    private Thread serverThread = new Thread(new ServerThread());//Create the server group sending thread
+    private Server server=new Server();//Create the server object
 
     public ServerFrame(String title) {
         super(title);
         this.setLayout(null);
 
-        serverText.setBounds(20, 20, 700, 330);//设置输出框位置
-        add(serverText);//添加聊天框
+        serverText.setBounds(20, 20, 700, 330);//Set the position and size of the text area
+        add(serverText);//Add the text area to the frame
 
-        serverThread.setDaemon(true);//设置为守护线程
+        serverThread.setDaemon(true);//Set the server group sending thread as a daemon thread
         serverSwitch.setBounds(300, 350, 150, 40);
         add(serverSwitch);
 
@@ -57,7 +57,7 @@ public class ServerFrame extends JFrame {
     }
     class ServerThread implements Runnable {
         public void run() {
-            server.creatServer();//服务器运行
+            server.creatServer();//Create the server
         }
     }
 

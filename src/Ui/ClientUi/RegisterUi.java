@@ -2,15 +2,17 @@ package Ui.ClientUi;
 
 import MyFrame.ClientFrame.RegisterFrame;
 
+import javax.swing.*;
+
 public class RegisterUi  {
     public static void  createRegister() {
         RegisterFrame registerFrame = new RegisterFrame("Register");
-        registerFrame.setSize(380, 290);//设置界面大小
-        registerFrame.setLayout(null);//取消布局器
-        registerFrame.setLocationRelativeTo(null);//中间显示
-        registerFrame.setResizable(false);//窗体大小不可调整
-        registerFrame.setDefaultCloseOperation(3);//关闭程序
-        registerFrame.setAlwaysOnTop(true);//设置悬浮
-        registerFrame.setVisible(true);//显示界面
+        registerFrame.setSize(380, 290);//Set the size of the frame
+        registerFrame.setLayout(null);//Set the layout of the frame
+        registerFrame.setLocationRelativeTo(null);//Display in the center
+        registerFrame.setResizable(false);//The size of the frame can not be changed
+        registerFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//Close the program
+        registerFrame.setAlwaysOnTop(true);//Set the frame to float
+        registerFrame.setVisible(true);//Display the frame
     }
 }

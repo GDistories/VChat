@@ -14,35 +14,34 @@ import java.util.List;
 public class Server {
     public static List<Socket> socketList = new ArrayList<Socket>();
     private ServerSocket serverSocket;
-    FileControl fileControl = new FileControl();//创建文件控制类
+    FileControl fileControl = new FileControl();//Create a file control object
 
     public void creatServer() {
-        serverSocket = null;//创界服务器套接字
-        fileControl.initialise();//初始化文件
+        serverSocket = null;//Create the server socket
+        fileControl.initialise();//Initialise the file control object
         try {
-            serverSocket = new ServerSocket(1505);//绑定端口
+            serverSocket = new ServerSocket(1505);//Create the server socket
             System.out.println("Server is running...");
             Date date = new Date();
             ServerFrame.setTextIn("Server is start at " + date.toString());
             while (true) {
-                Socket socket = serverSocket.accept();     //从连接请求队列中取出一个连接
+                Socket socket = serverSocket.accept();     //Accept the connection from the client
 
-                System.out.println("User " + socket.getPort() + " is now online!");//用户上线公告
-                ServerFrame.setTextIn("User " + socket.getPort() + " is now online!");//用户上线公告
+                System.out.println("User " + socket.getPort() + " is now online!");//Print the message to the server console
+                ServerFrame.setTextIn("User " + socket.getPort() + " is now online!");//Print the message to the server console
 
-                //TODO:同步聊天记录
                 PrintWriter pw = null;
                 try {
-                    pw = new PrintWriter(socket.getOutputStream());//创建数据输出流
+                    pw = new PrintWriter(socket.getOutputStream());//Create a new PrintWriter
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                pw.println(fileControl.read());//发送数据
-                pw.flush();//刷新
+                pw.println(fileControl.read());//Send the data to the client
+                pw.flush();//Flush the data to the client
 
-                socketList.add(socket);//加入队列
+                socketList.add(socket);//Add the client to the socket list
                 printSocketList();
-                new Thread(new ServerThread(socket, socketList, fileControl)).start();//创建新线程
+                new Thread(new ServerThread(socket, socketList, fileControl)).start();//Create a new thread to receive data from the client
             }
         } catch (IOException e) {
 //            e.printStackTrace();
@@ -57,36 +56,36 @@ public class Server {
 
     public void printSocketList() {
         String currentUser = "Current Online User:,";
-        PrintWriter pw = null;//创建空输出流
+        PrintWriter pw = null;//Create a new PrintWriter
         for (Socket socket : socketList) {
             currentUser += socket.getPort() + ",";
         }
 
         for (Socket socket : socketList) {
             try {
-                pw = new PrintWriter(socket.getOutputStream());//创建数据输出流
+                pw = new PrintWriter(socket.getOutputStream());//Create a new PrintWriter
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            pw.println(currentUser);//发送数据
-            pw.flush();//刷新
+            pw.println(currentUser);//Send the data to the client
+            pw.flush();//Flush the data to the client
         }
     }
 
-    public void closeServer() {//关闭服务器
+    public void closeServer() {//Close the server
         PrintWriter pw = null;
         Date date = new Date();
         ServerFrame.setTextIn("Server is closed at " + date.toString());
         try {
-            fileControl.saveLog();//保存聊天记录
+            fileControl.saveLog();//Save the log
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Socket item : socketList) {//关闭所有端口
+        for (Socket item : socketList) {//Close the client socket
             try {
-                pw = new PrintWriter(item.getOutputStream());//创建数据输出流
-                pw.println("Server Has Been Closed!");//发送服务器关闭指示
-                pw.flush();//刷新
+                pw = new PrintWriter(item.getOutputStream());//Create a new PrintWriter
+                pw.println("Server Has Been Closed!");//Send the data to the client
+                pw.flush();//Flush the data to the client
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -99,74 +98,74 @@ public class Server {
                     }
                 }
             }
-            //发送退出指令
+            //Close the client socket
         }
     }
 }
 
-class ServerThread implements Runnable {//服务器群发消息线程
-    public Socket socket;//端口
-    public static List<Socket> socketList = new ArrayList<Socket>();//客户队列
+class ServerThread implements Runnable {//Create a new thread to send data to the client
+    public Socket socket;//Create a new socket
+    public static List<Socket> socketList = new ArrayList<Socket>();//Create a new socket list
     public Date date;
     FileControl fileControl;
 
-    public ServerThread(Socket socket, List<Socket> socketList, FileControl fileControl) {//绑定端口和队列
+    public ServerThread(Socket socket, List<Socket> socketList, FileControl fileControl) {//Create a new thread to send data to the client
         this.socket = socket;
         this.socketList = socketList;
         this.fileControl = fileControl;
     }
     public void run() {
-        BufferedReader br = null;//创建空输入流
-        PrintWriter pw = null;//创建空输出流
-
-
+        BufferedReader br = null;//Create a new BufferedReader
+        PrintWriter pw = null;//Create a new PrintWriter
+        System.out.println("Start New Thread");//Print the message to the server console
         try {
-            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));//创建输入流
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));//Create a new BufferedReader
             while (true) {
                 date = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//创建时间格式化类
-                String str = br.readLine();//数据读取
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//Create a new SimpleDateFormat
+                String str = br.readLine();//Read the data from the client
                 ServerFrame.setTextIn(sdf.format(date) + "\nUser " + socket.getPort() + " says: " + str + "\n");
                 fileControl.write(sdf.format(date) + "\nUser " + socket.getPort() + " says: " + str + "\n");
-                //公告退出if...
-                for (Socket item : socketList) {//遍历客户队列，向每一个客户发送数据
-                    pw = new PrintWriter(item.getOutputStream());//创建数据输出流
-                    pw.println(sdf.format(date) + "\nUser " + socket.getPort() + " says: " + str + "\n");//发送数据
-                    pw.flush();//刷新
+                //Print the message to the server console
+                for (Socket item : socketList) {//Traverse the client list and send data to each client
+                    pw = new PrintWriter(item.getOutputStream());//Create a new PrintWriter
+                    pw.println(sdf.format(date) + "\nUser " + socket.getPort() + " says: " + str + "\n");//Send the data to the client
+                    pw.flush();//Flush the data to the client
                 }
             }
-        } catch (IOException e) {//抓取连接断开异常，描述客户退出
+        } catch (IOException e) {//Grab connection disconnection exception, describe client exit
 //            e.printStackTrace();
-            socketList.remove(socket);//移除客户
+            socketList.remove(socket);//Remove the client from the socket list
             printSocketList();
-            System.out.println("User " + socket.getPort() + " is Offline!");//客户退出公告
-            ServerFrame.setTextIn("User " + socket.getPort() + " is Offline!");//客户退出公告
+            System.out.println("User " + socket.getPort() + " is Offline!");//Print the message to the server console
+            ServerFrame.setTextIn("User " + socket.getPort() + " is Offline!");//Print the message to the server console
 
         } finally {
-            try {//关闭流
+            try {//Close the client socket
                 if (br != null) br.close();
                 if (pw != null) pw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("New Thread End");//Print the message to the server console
     }
 
     public void printSocketList() {
         String currentUser = "Current Online User:,";
-        PrintWriter pw = null;//创建空输出流
+        PrintWriter pw = null;//Create a new PrintWriter
         for (Socket socket : socketList) {
             currentUser += socket.getPort() + ",";
         }
 
         for (Socket socket : socketList) {
             try {
-                pw = new PrintWriter(socket.getOutputStream());//创建数据输出流
+                pw = new PrintWriter(socket.getOutputStream());//Create a new PrintWriter
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            pw.println(currentUser);//发送数据
-            pw.flush();//刷新
+            pw.println(currentUser);//Send the data to the client
+            pw.flush();//Flush the data to the client
         }
     }
 }
