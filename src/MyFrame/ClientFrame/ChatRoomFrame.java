@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatRoomFrame extends JFrame {
     public static TextArea textOut = new TextArea("Start the Chat Room!");//输出聊天框
@@ -53,5 +55,14 @@ public class ChatRoomFrame extends JFrame {
 
     public static void setTextIn(String str) {
         textOut.append('\n'+str);
+    }
+
+    public static void setCurrentUser(String str) {
+        String currentUserStr = "Current User: \n";
+        String[] strs = str.split(",");
+        for(int i = 1; i < strs.length; i++) {
+            currentUserStr += "User " + strs[i] + "\n";
+        }
+        currentUser.setText(currentUserStr);
     }
 }

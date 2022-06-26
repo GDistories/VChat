@@ -1,4 +1,0 @@
-User 65042 says: 123
-User 65042 says: 321
-User 65070 says: 222
-User 65085 says: 555

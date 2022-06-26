@@ -67,7 +67,7 @@ class ClientThread implements Runnable {//接收消息线程
                     if (br != null) br.close();
                 }
                 if (str.contains("Current Online User:")) {//获取服务器发送的消息
-                    System.out.println(str);
+                    ChatRoomFrame.setCurrentUser(str);
                 }else{
                     ChatRoomFrame.setTextIn(str);
                 }

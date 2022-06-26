@@ -44,7 +44,6 @@ public class ServerFrame extends JFrame {
             serverThread.start();
             open.setEnabled(false);
             close.setEnabled(true);
-            server.closeServer();
         }
     }
 
