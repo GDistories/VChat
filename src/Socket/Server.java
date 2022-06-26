@@ -36,7 +36,7 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                pw.println(fileControl.read());//Send the data to the client
+                pw.println(fileControl.read() + "The above are the historical messages\n");//Send the data to the client
                 pw.flush();//Flush the data to the client
 
                 socketList.add(socket);//Add the client to the socket list
